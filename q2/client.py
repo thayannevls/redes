@@ -1,6 +1,7 @@
 from socket import *
 from threading import Thread
 from queue import Queue
+from time import sleep
 
 SERVER_IP = '127.0.0.1'
 SERVER_PORT = 5005
@@ -14,33 +15,47 @@ def send_message(udp_socket, message):
     udp_socket.sendto(message.encode('utf-8'), (SERVER_IP, SERVER_PORT))
 
 def receive_message(udp_socket):
-    return udp_socket.recvfrom(BUFFER_SIZE)
+    response, client = udp_socket.recvfrom(BUFFER_SIZE)
+    udp_socket.sendto('ACK'.encode('utf-8'), client)
+    return response.decode('utf-8')
 
-def handle_connection(confirmation_signals):
-    response, _ = udp_socket.recvfrom(BUFFER_SIZE)
-    confirmation_signals.put(response.decode('utf-8'))
+def await_confirmation(operation, confirmation_signals):
+    send_message(udp_socket, operation)
+    response, client = udp_socket.recvfrom(BUFFER_SIZE)
+    response = response.decode('utf-8')
+    if(response):
+        if(response == 'ACK'):
+            confirmation_signals.put(response)
+        else:
+            print('\033[95m' + 'Answer: ' + response + '\033[0m')
+
 
 if __name__ == '__main__':
     confirmation_signals = Queue() # ACKs
     udp_socket = create_socket()
-    message = input('op: ')
-    send_message(udp_socket, message)
+    operation = input('Operation: ')
 
-    connection = Thread(target=handle_connection, args=(confirmation_signals, ))
-    connection.start()
-    connection.join(timeout=2)
+    while(True):
+        connection = Thread(target=await_confirmation, args=(operation, confirmation_signals, ))
+        connection.start()
+        connection.join(timeout=2)
+
+        if(confirmation_signals.qsize()):
+            break
+        print('\033[91m' + 'No response from server. Trying again...' + '\033[0m')
+
+    answer = receive_message(udp_socket)
+    if(answer and answer != 'ACK'):
+        print('\033[95m' + 'Answer: ' + answer + '\033[0m')
 
     if(confirmation_signals.qsize()):
         signal = confirmation_signals.get()
 
         if(signal == 'ACK'):
-            result, _ = udp_socket.recvfrom(BUFFER_SIZE)
-            print('ACK Client')
-            print(result.decode('utf-8'))
+            print('Client received ACK')
             udp_socket.sendto('ACK'.encode('utf-8'), (SERVER_IP, SERVER_PORT))
         else:
             print('What is this?...')
-    else:
-        print('Transmission failed!')
+   
     udp_socket.close()
 
