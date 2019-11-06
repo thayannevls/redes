@@ -5,6 +5,7 @@
 `-c IP_SERVIDOR`
 
 ## Response
+Nesse comando iniciamos o iperf3 no modo `client` e especificamos um host através do seu hostname. No nosso caso `localhost`.
 
 ```sh
 Connecting to host localhost, port 5201
@@ -33,6 +34,8 @@ iperf Done.
 `-c IP_SERVIDOR -w 1 | 2.000 | 10.000 | 50.000 | 100.000`
 
 ## Response
+Nesse comando definimos o tamanho da **window** para os dados. Podemos perceber que quanto maior a *window*, maior o a taxa de *Bitrate*.
+
 ### -w 1
 ```sh
 Connecting to host localhost, port 5201
@@ -154,6 +157,123 @@ iperf Done.
 `-c IP_SERVIDOR -M 100 | 250 | 500 | 1000 | 1500`
 
 ## Response
+Esse comando configura o *Maximum Segment Size*, que é a especificação a quantidade máxima de dado que um computador pode receber em um único segmento TCP.
+
+### -M 100
+```sh
+Connecting to host localhost, port 5201
+[  4] local 127.0.0.1 port 38012 connected to 127.0.0.1 port 5201
+[ ID] Interval           Transfer     Bandwidth       Retr  Cwnd
+[  4]   0.00-1.00   sec  4.87 GBytes  41.9 Gbits/sec    0    312 KBytes       
+[  4]   1.00-2.00   sec  4.63 GBytes  39.7 Gbits/sec    0    312 KBytes       
+[  4]   2.00-3.00   sec  4.14 GBytes  35.5 Gbits/sec    0    705 KBytes       
+[  4]   3.00-4.00   sec  3.04 GBytes  26.1 Gbits/sec    0    804 KBytes       
+[  4]   4.00-5.00   sec  4.18 GBytes  35.9 Gbits/sec    0    804 KBytes       
+[  4]   5.00-6.00   sec  3.06 GBytes  26.3 Gbits/sec    0    804 KBytes       
+[  4]   6.00-7.00   sec  3.31 GBytes  28.4 Gbits/sec    0    804 KBytes       
+[  4]   7.00-8.00   sec  3.38 GBytes  29.0 Gbits/sec    0    804 KBytes       
+[  4]   8.00-9.00   sec  3.11 GBytes  26.7 Gbits/sec    0    804 KBytes       
+[  4]   9.00-10.00  sec  3.41 GBytes  29.3 Gbits/sec    0    804 KBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Retr
+[  4]   0.00-10.00  sec  37.1 GBytes  31.9 Gbits/sec    0             sender
+[  4]   0.00-10.00  sec  37.1 GBytes  31.9 Gbits/sec                  receiver
+
+iperf Done.
+```
+
+### -M 250
+
+```sh
+Connecting to host localhost, port 5201
+[  8] local ::1 port 51132 connected to ::1 port 5201
+[ ID] Interval           Transfer     Bitrate
+[  8]   0.00-1.00   sec  2.90 GBytes  24.9 Gbits/sec
+[  8]   1.00-2.00   sec  2.81 GBytes  24.2 Gbits/sec
+[  8]   2.00-3.00   sec  1.26 GBytes  10.8 Gbits/sec
+[  8]   3.00-4.00   sec  1.86 GBytes  16.0 Gbits/sec
+[  8]   4.00-5.00   sec  2.79 GBytes  24.0 Gbits/sec
+[  8]   5.00-6.00   sec  3.16 GBytes  27.2 Gbits/sec
+[  8]   6.00-7.00   sec  2.66 GBytes  22.8 Gbits/sec
+[  8]   7.00-8.00   sec  3.05 GBytes  26.2 Gbits/sec
+[  8]   8.00-9.00   sec  3.05 GBytes  26.2 Gbits/sec
+[  8]   9.00-10.00  sec  3.03 GBytes  26.0 Gbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate
+[  8]   0.00-10.00  sec  26.6 GBytes  22.8 Gbits/sec                  sender
+[  8]   0.00-10.00  sec  26.6 GBytes  22.8 Gbits/sec                  receiver
+
+iperf Done.
+```
+### -M 500
+```sh
+Connecting to host localhost, port 5201
+[  8] local ::1 port 51135 connected to ::1 port 5201
+[ ID] Interval           Transfer     Bitrate
+[  8]   0.00-1.03   sec  1.54 GBytes  12.8 Gbits/sec
+[  8]   1.03-2.00   sec  1.13 GBytes  10.0 Gbits/sec
+[  8]   2.00-3.00   sec  2.33 GBytes  20.1 Gbits/sec
+[  8]   3.00-4.00   sec  2.91 GBytes  25.0 Gbits/sec
+[  8]   4.00-5.00   sec  2.12 GBytes  18.2 Gbits/sec
+[  8]   5.00-6.00   sec  2.42 GBytes  20.8 Gbits/sec
+[  8]   6.00-7.00   sec  2.79 GBytes  24.0 Gbits/sec
+[  8]   7.00-8.00   sec  2.62 GBytes  22.4 Gbits/sec
+[  8]   8.00-9.00   sec  1.82 GBytes  15.7 Gbits/sec
+[  8]   9.00-10.00  sec  2.79 GBytes  23.9 Gbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate
+[  8]   0.00-10.00  sec  22.5 GBytes  19.3 Gbits/sec                  sender
+[  8]   0.00-10.00  sec  22.5 GBytes  19.3 Gbits/sec                  receiver
+
+iperf Done.
+```
+
+### -M 1000
+
+```sh
+Connecting to host localhost, port 5201
+[  8] local ::1 port 51139 connected to ::1 port 5201
+[ ID] Interval           Transfer     Bitrate
+[  8]   0.00-1.00   sec  1.83 GBytes  15.7 Gbits/sec
+[  8]   1.00-2.00   sec  2.84 GBytes  24.4 Gbits/sec
+[  8]   2.00-3.00   sec  2.19 GBytes  18.8 Gbits/sec
+[  8]   3.00-4.01   sec  1.66 GBytes  14.3 Gbits/sec
+[  8]   4.01-5.00   sec  1.27 GBytes  11.0 Gbits/sec
+[  8]   5.00-6.01   sec  1.70 GBytes  14.4 Gbits/sec
+[  8]   6.01-7.00   sec  1.07 GBytes  9.30 Gbits/sec
+[  8]   7.00-8.00   sec  1.38 GBytes  11.8 Gbits/sec
+[  8]   8.00-9.00   sec  2.46 GBytes  21.1 Gbits/sec
+[  8]   9.00-10.00  sec  1.41 GBytes  12.1 Gbits/sec
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate
+[  8]   0.00-10.00  sec  17.8 GBytes  15.3 Gbits/sec                  sender
+[  8]   0.00-10.00  sec  17.8 GBytes  15.3 Gbits/sec                  receiver
+
+iperf Done.
+```
+
+### -M 1500
+```sh
+Connecting to host localhost, port 5201
+[  4] local 127.0.0.1 port 38050 connected to 127.0.0.1 port 5201
+[ ID] Interval           Transfer     Bandwidth       Retr  Cwnd
+[  4]   0.00-1.00   sec  3.26 GBytes  28.0 Gbits/sec    0    501 KBytes       
+[  4]   1.00-2.00   sec  3.22 GBytes  27.7 Gbits/sec    0    612 KBytes       
+[  4]   2.00-3.00   sec  4.47 GBytes  38.4 Gbits/sec    0    658 KBytes       
+[  4]   3.00-4.00   sec  4.48 GBytes  38.5 Gbits/sec    0    658 KBytes       
+[  4]   4.00-5.00   sec  4.53 GBytes  38.9 Gbits/sec    0    658 KBytes       
+[  4]   5.00-6.00   sec  4.43 GBytes  38.1 Gbits/sec    0    695 KBytes       
+[  4]   6.00-7.00   sec  2.82 GBytes  24.3 Gbits/sec    0   2.01 MBytes       
+[  4]   7.00-8.00   sec  2.99 GBytes  25.7 Gbits/sec    0   2.12 MBytes       
+[  4]   8.00-9.00   sec  3.04 GBytes  26.1 Gbits/sec   86   1.48 MBytes       
+[  4]   9.00-10.00  sec  2.99 GBytes  25.7 Gbits/sec    0   1.48 MBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bandwidth       Retr
+[  4]   0.00-10.00  sec  36.2 GBytes  31.1 Gbits/sec   86             sender
+[  4]   0.00-10.00  sec  36.2 GBytes  31.1 Gbits/sec                  receiver
+
+iperf Done.
+```
 
 # 4
 
@@ -161,6 +281,7 @@ iperf Done.
 `-s -c IP_SERVIDOR -P 1 | 2 | 4 | 8`
 
 ## Response
+Nesse comando definimos o número de clientes paralelos que irão rodar.
 
 ### -P 1
 ```sh
